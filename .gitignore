@@ -1,0 +1,17 @@
+#Globals
+*.o
+.cache
+*.pdf
+*.md
+ex0*/.devcontainer
+ex0*/.vscode
+#leaks reports
+leaks.*.txt
+#ex00
+btc
+#ex01
+iter
+#ex02
+MutantStack
+#ex03
+
