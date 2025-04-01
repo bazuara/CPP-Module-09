@@ -21,9 +21,9 @@ CXXCFLAGS = -Wall -Wextra -Werror -std=c++98
 VALGRIND_FLAGS = --leak-check=full --show-leak-kinds=all --verbose --log-file=leaks.$(NAME).txt
 
 # arguments for binary
-BIN_ARGS_1 = '8 9 * 9 - 9 - 9 - 4 - 1 +'
-BIN_ARGS_2 = '7 7 * 7 -'
-BIN_ARGS_3 = '1 2 * 2 / 2 * 2 4 - +'
+BIN_ARGS_1 = 3 5 9 7 4
+BIN_ARGS_2 = 2 4 6 8 10
+BIN_ARGS_3 = 1 3 5 7 9 11 13 15 17 19
 
 all: $(NAME)
 
@@ -66,6 +66,8 @@ test: re
 	@./$(NAME) $(BIN_ARGS_2)
 	@echo "🔥Test 3🔥: $(BIN_ARGS_3)"
 	@./$(NAME) $(BIN_ARGS_3)
+	@echo "🔥Test 4🔥: 3000 random numbers"
+	@bash -c './$(NAME) `shuf -i 1-1000 -n 3000 | tr "\\n" " "`'
 	@echo "\n🛡️Valgrind execution🛡️\n"
 	@echo "🔥Test 1🔥: $(BIN_ARGS_1)"
 	@valgrind $(VALGRIND_FLAGS) ./$(NAME) $(BIN_ARGS_1)
@@ -73,6 +75,7 @@ test: re
 	@valgrind $(VALGRIND_FLAGS) ./$(NAME) $(BIN_ARGS_2)
 	@echo "🔥Test 3🔥: $(BIN_ARGS_3)"
 	@valgrind $(VALGRIND_FLAGS) ./$(NAME) $(BIN_ARGS_3)
-
+	@echo "🔥Test 4🔥: 3000 random numbers"
+	@valgrind $(VALGRIND_FLAGS) ./$(NAME) `shuf -i 1-1000 -n 3000 | tr "\\n" " "`
 	@echo "\n📚Valgrind summary📚\nCheck leaks.$(NAME).txt for a detailed report."
 	@cat leaks.$(NAME).txt | grep 'ERROR SUMMARY'
